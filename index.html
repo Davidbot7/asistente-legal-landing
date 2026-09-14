@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es-EC">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistente Legal Ecuador — Consulta la norma en minutos, por WhatsApp</title>
+<meta name="description" content="Asistente jurídico con IA que localiza y cita la norma legal ecuatoriana vigente. Sin cita previa, por WhatsApp, desde $0.50 por consulta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f1ece0;
+    --paper-2: #e9e2d2;
+    --ink: #201a12;
+    --ink-soft: #5b5344;
+    --seal: #8c1f28;
+    --seal-soft: #a8434b;
+    --line: #d6c9ac;
+    --whatsapp: #1f7a4d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Public Sans', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  h1, h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; position: relative; }
+  .rule { border: none; border-top: 1px solid var(--line); margin: 0; }
+
+  header.top {
+    padding: 64px 0 56px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .watermark {
+    position: absolute;
+    top: -0.35em; right: -0.08em;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 220px;
+    color: var(--ink);
+    opacity: 0.045;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+  .doc-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--seal);
+    margin-bottom: 20px;
+    position: relative; z-index: 1;
+  }
+  .doc-num::before { content: "§ "; }
+  header.top h1 {
+    font-size: 38px;
+    max-width: 600px;
+    line-height: 1.15;
+    position: relative; z-index: 1;
+  }
+  header.top h1 em { font-style: italic; color: var(--seal); font-weight: 500; }
+  header.top p.lead {
+    font-size: 17.5px;
+    max-width: 520px;
+    color: var(--ink-soft);
+    margin: 22px 0 32px;
+    position: relative; z-index: 1;
+  }
+  .cta-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; position: relative; z-index: 1; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 14px 24px;
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border-radius: 2px;
+  }
+  .btn-primary {
+    background: var(--whatsapp);
+    color: #fbf8f0;
+    border: 1px solid var(--whatsapp);
+  }
+  .btn-outline {
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    background: transparent;
+  }
+  .fine { font-size: 13px; color: var(--ink-soft); margin-top: 16px; position: relative; z-index: 1; }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section.no-border { border-bottom: none; }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--seal); margin-bottom: 14px;
+  }
+  section h2 { font-size: 24px; max-width: 560px; }
+  section > .wrap > p.sub { color: var(--ink-soft); max-width: 520px; font-size: 15.5px; margin-top: 10px; }
+
+  .clause { display: flex; gap: 22px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .clause:first-of-type { border-top: none; margin-top: 30px; }
+  .clause .tag {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--seal);
+    white-space: nowrap;
+    padding-top: 1px;
+    min-width: 108px;
+  }
+  .clause h3 { font-family: 'Public Sans', sans-serif; font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+  .clause p { color: var(--ink-soft); font-size: 14.5px; margin: 0; max-width: 440px; }
+
+  .materias-list {
+    margin-top: 26px; font-size: 15px; color: var(--ink);
+    display: flex; flex-wrap: wrap; gap: 0;
+  }
+  .materias-list span { white-space: nowrap; }
+  .materias-list span:not(:last-child)::after { content: " · "; color: var(--line); }
+  .materias-list span.no { color: var(--seal-soft); font-style: italic; }
+
+  .pricing { margin-top: 34px; }
+  .plan {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 24px 0; border-top: 1px solid var(--line);
+  }
+  .plan:last-child { border-bottom: 1px solid var(--line); }
+  .plan .info h3 {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 19px; margin: 0 0 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .plan .info p { margin: 0; color: var(--ink-soft); font-size: 14px; }
+  .plan .price {
+    font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: var(--ink);
+    white-space: nowrap; text-align: right; min-width: 150px;
+  }
+  .plan .price b { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; display: block; }
+  .plan .buy {
+    display: inline-block; margin-top: 10px;
+    font-size: 13px; font-weight: 600; text-decoration: none;
+    color: var(--ink); border-bottom: 1px solid var(--seal); padding-bottom: 1px;
+  }
+  .plan .buy:hover { color: var(--seal); }
+
+  .seal-mark {
+    width: 46px; height: 46px; border-radius: 50%;
+    border: 1.5px solid var(--seal); position: relative;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .seal-mark::before { content: ""; position: absolute; inset: 3px; border: 1px solid var(--seal); border-radius: 50%; }
+  .seal-mark span {
+    font-family: 'IBM Plex Mono', monospace; font-size: 7.5px; letter-spacing: 0.03em;
+    text-transform: uppercase; color: var(--seal); text-align: center; line-height: 1.15;
+  }
+
+  .disclaimer {
+    background: var(--paper-2);
+    border-left: 3px solid var(--seal);
+    padding: 22px 26px; font-size: 13.5px; color: var(--ink-soft); margin-top: 44px;
+  }
+  .disclaimer strong { color: var(--ink); }
+  .disclaimer a { color: var(--seal); }
+
+  footer { padding: 36px 0 56px; text-align: center; color: var(--ink-soft); font-size: 13px; }
+  footer a { color: var(--ink); }
+
+  @media (max-width: 640px) {
+    header.top h1 { font-size: 29px; }
+    .watermark { font-size: 130px; top: -0.2em; }
+    .clause { flex-direction: column; gap: 6px; }
+    .clause .tag { min-width: 0; }
+    .plan { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .plan .price { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="watermark" aria-hidden="true">Art. 66</span>
+    <div class="doc-num">Ecuador · Marco legal vigente</div>
+    <h1>La norma exacta que necesitas, <em>citada y verificable</em> — sin cita previa, por WhatsApp.</h1>
+    <p class="lead">Asistente jurídico con inteligencia artificial que busca en el marco legal ecuatoriano real (Constitución, códigos, leyes, ordenanzas) y responde solo con artículos que existen — nunca inventa una norma.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://wa.me/593981945453?text=consulta%20legal" target="_blank" rel="noopener">
+        Escribir por WhatsApp
+      </a>
+      <a class="btn btn-outline" href="#precios">Ver precios</a>
+    </div>
+    <p class="fine">Primera respuesta de contacto es automática y sin costo. Cada consulta legal respondida sí tiene costo — se te informa antes de cobrarte.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Procedimiento</div>
+    <h2>Tres pasos, todo dentro de WhatsApp</h2>
+    <p class="sub">No hay que instalar nada ni crear una cuenta. El asistente ya corre en producción.</p>
+    <div class="clause">
+      <div class="tag">Primero.-</div>
+      <div><h3>Escribes tu duda</h3><p>En lenguaje normal, como se lo preguntarías a un abogado: "¿cuántos días de vacaciones me tocan al año?"</p></div>
+    </div>
+    <div class="clause">
+      <div class="tag">Segundo.-</div>
+      <div><h3>El asistente busca la norma real</h3><p>Revisa el cuerpo legal correcto y solo cita artículos que existen de verdad, con su fecha de vigencia.</p></div>
+    </div>
+    <div class="clause">
+      <div class="tag">Tercero.-</div>
+      <div><h3>Recibes la respuesta con la cita</h3><p>Artículo, cuerpo legal y vigencia al final de cada respuesta, para que la verifiques tú mismo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Cobertura</div>
+    <h2>Qué cubre hoy el corpus</h2>
+    <p class="sub">Constitución y códigos nacionales completos, más ordenanzas provinciales. Se avisa explícitamente cuando algo no está cubierto — nunca se improvisa.</p>
+    <div class="materias-list">
+      <span>Constitución del Ecuador</span>
+      <span>Código del Trabajo</span>
+      <span>Código Civil</span>
+      <span>COIP</span>
+      <span>COGEP</span>
+      <span>Tributario / LRTI / SRI</span>
+      <span>Ley de Compañías</span>
+      <span>Ley General de Seguros</span>
+      <span>Mercado de Valores</span>
+      <span>Niñez y Adolescencia</span>
+      <span>Ordenanzas provinciales*</span>
+      <span class="no">sin jurisprudencia (aún)</span>
+    </div>
+  </div>
+</section>
+
+<section id="precios" class="no-border">
+  <div class="wrap">
+    <div class="eyebrow">Precios</div>
+    <h2>Paga solo por lo que consultas</h2>
+    <p class="sub">Sin suscripción obligatoria. Los créditos no caducan a los pocos días.</p>
+    <div class="pricing">
+      <div class="plan">
+        <div class="info">
+          <h3>Básico</h3>
+          <p>10 consultas legales · válido 12 meses</p>
+          <a class="buy" href="https://whop.com/biz_LbuKRDoSqai1kb/basico-10-consultas-legales-f3/" target="_blank" rel="noopener">Comprar →</a>
+        </div>
+        <div class="price"><b>$8</b>$0.80 / consulta</div>
+      </div>
+      <div class="plan">
+        <div class="info">
+          <h3>Frecuente <span class="seal-mark"><span>Más<br>usado</span></span></h3>
+          <p>40 consultas legales · válido 12 meses</p>
+          <a class="buy" href="https://whop.com/biz_LbuKRDoSqai1kb/frecuente-40-consultas-legales-f6/" target="_blank" rel="noopener">Comprar →</a>
+        </div>
+        <div class="price"><b>$25</b>$0.63 / consulta</div>
+      </div>
+      <div class="plan">
+        <div class="info">
+          <h3>Profesional</h3>
+          <p>120 consultas · para asesores y despachos</p>
+          <a class="buy" href="https://whop.com/biz_LbuKRDoSqai1kb/profesional-120-consultas-legales-a6/" target="_blank" rel="noopener">Comprar →</a>
+        </div>
+        <div class="price"><b>$60</b>$0.50 / consulta</div>
+      </div>
+    </div>
+    <p class="fine">Tras pagar, Whop te muestra un ID de orden — escríbenos por WhatsApp "activar [ese ID]" para recibir tus créditos.</p>
+
+    <div class="disclaimer">
+      <strong>Este servicio es informativo.</strong> Localiza y cita la norma legal ecuatoriana aplicable — no reemplaza la asesoría de un abogado o contador, no analiza casos particulares ni asume representación legal. Para decisiones concretas, consulta con un profesional. Tus datos y el manejo de tu consulta se rigen por nuestra <a href="#">política de privacidad</a>.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Ecuador · Servicio informativo, no constituye asesoría legal vinculante.
+  </div>
+</footer>
+
+</body>
+</html>
